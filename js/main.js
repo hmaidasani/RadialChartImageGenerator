@@ -124,7 +124,7 @@ function changeArc(arcId, dataChange, value) {
     if(dataChange === 'max-value') {
         obj = {"max":value};
         $(arcId).attr('data-max', value);
-        $('.subtext-max').text(value);
+        $(arcId).parents('.chart-box').find('.subtext-max').text(value);
     } else if(dataChange === 'foreground-color-start') {
         obj = {"fgColor":value};
         $(arcId).attr('data-fgcolor', value);
