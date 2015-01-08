@@ -1,0 +1,159 @@
+body{
+  padding: 0;
+  /*margin: 0px 50px;*/
+  /*font-family: Comfortaa, sans-serif;*/
+  /*font-weight: 300;*/
+  text-rendering: optimizelegibility;
+  background-color: #000000;
+}
+
+.navbar {
+	border-radius: 0px !important;
+	border: none;
+	background-color: #ddd;
+}
+.navbar .navbar-brand {
+	color: #111;
+}
+.charts-row {
+	text-align: center;
+}
+.charts-row, .charts-row h3, .charts-row h4, .charts-row h5 {
+	color: #fff;
+}
+.chart-box {
+	position:relative;
+	height:300px;
+	width:300px;
+	margin: 10px auto;
+}
+.chart-options {
+	padding: 5px 0;
+}
+.options {
+	text-align: left;
+	background-color: #e2e2e2;
+	padding: 10px;
+	color: #000000;
+}
+.options h4 {
+	color: #000000;
+}
+.options .input-area {
+	width: 185px;
+	display: inline-block;
+}
+
+.options .text {
+	display: inline-block;
+	line-height: 36px;
+	vertical-align: middle;
+	margin-top: -26px;
+	margin-right: 5px;
+}
+
+.options input {
+	color: #000000;
+	text-align: center;
+}
+.options .btn-refresh {
+	background-color: transparent;
+}
+.btn-number[data-type="plus"], input.color, .single-input {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	margin-left: -1px;
+}
+.btn {
+	outline: none !important;
+}
+.btn-number {
+	color: #333 !important;
+	background-color: #fff !important;
+	border-color: #ccc !important;
+}
+footer {
+	padding: 50px 0;
+}
+
+.loading-message {
+	color: #ffffff;
+}
+/*
+Spinner by https://github.com/tobiasahlin/SpinKit
+ *  Usage:
+ *
+ *    <div class="sk-spinner sk-spinner-three-bounce">
+ *      <div class="sk-bounce1"></div>
+ *      <div class="sk-bounce2"></div>
+ *      <div class="sk-bounce3"></div>
+ *    </div>
+ *
+ */
+.sk-spinner-three-bounce.sk-spinner {
+  margin: 0 auto;
+  width: 70px;
+  text-align: center; }
+.sk-spinner-three-bounce div {
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-threeBounceDelay 1.4s infinite ease-in-out;
+          animation: sk-threeBounceDelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both; }
+.sk-spinner-three-bounce .sk-bounce1 {
+  -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s; }
+.sk-spinner-three-bounce .sk-bounce2 {
+  -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s; }
+
+@-webkit-keyframes sk-threeBounceDelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+
+  40% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes sk-threeBounceDelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+
+  40% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+.knob {
+	font-family: 'Roboto','Myriad Set Pro', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif !important;
+	color: #fff;
+}
+.knob.with-subtext {
+	margin-top: 85px !important;
+}
+.subtext {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	font-family: 'Roboto','Myriad Set Pro', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
+	color: #fff;
+	text-transform: uppercase;
+	top: 180px;
+	font-size: 20px;
+}
+.checkbox-inline {
+	margin-top: -26px;
+	margin-right: 5px;
+	padding-left: 0px;
+}
+.checkbox-inline input[type=checkbox] {
+ position: relative; 
+/*margin-top: 4px \9;*/
+ margin-left: 5px;
+}
