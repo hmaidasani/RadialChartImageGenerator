@@ -22,6 +22,24 @@ A simple tool that generates images for animating radial progress charts for the
 
 ## How To Use
 
+1. Go to http://hmaidasani.github.io/RadialChartImageGenerator/.
+
+2. Decide on whether you need a single, double, or triple arc radial chart.
+
+3. Choose the max value or the capacity of the appropriate arc.
+
+4. Choose the arc background color.
+
+5. Decide the color scheme for each appropriate arc. If you would like a gradient color scheme, choose three different colors for the foreground start, mid, and end colors. In order to see how this looks, choose the current value to be equal to the max value to see the full arc gradient. Note: the current value has no effect on the output of the images - it is merely there to see how the arc would look at a given value.
+
+6. For the single arc, you may select if text should appear in the center. You may also select the text color and the units of the subtext.
+
+7. Once you have modified each arc to your preference, click the Generate Images button to generate each permutation of images for the given arc structure.
+
+8. The images should download in a zip file.
+
+Coming soon - sample WatchKit instructions/app using the images generated using the RadialChartImageGenerator.
+
 ## Contact & Feature Requests
 
 Send all of your questions and feature requests to <hmaidasani@gmail.com> or add your issues to the issues section of git repository.
