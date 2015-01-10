@@ -26,6 +26,8 @@ A simple tool that generates images for animating radial progress charts for the
 
 2. Decide on whether you need a single, double, or triple arc radial chart.
 
+![animation1](docs/animate1.gif)
+
 3. Choose the max value or the capacity of the appropriate arc.
 
 4. Choose the arc background color.
