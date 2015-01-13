@@ -22,6 +22,8 @@ A simple tool that generates images for animating radial progress charts for the
 
 ## How To Use
 
+#### Instructions
+
 1. Go to http://hmaidasani.github.io/RadialChartImageGenerator/.
 
 2. Decide on whether you need a single, double, or triple arc radial chart.
@@ -45,6 +47,8 @@ A simple tool that generates images for animating radial progress charts for the
 8. The images should download in a zip file.
 
 9. Repeat for all the other arcs if needed.
+
+#### Examples
 
 Coming soon - sample WatchKit instructions/app using the images generated using the RadialChartImageGenerator.
 
