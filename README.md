@@ -28,17 +28,23 @@ A simple tool that generates images for animating radial progress charts for the
 ![animation1](docs/how-to-2.png)
 
 3. Choose the max value or the capacity of the appropriate arc.
-![animation1](docs/how-to-3.gif)
+![animation2](docs/how-to-3.gif)
 
 4. Choose the arc background color.
+![animation3](docs/how-to-4.gif)
 
 5. Decide the color scheme for each appropriate arc. If you would like a gradient color scheme, choose three different colors for the foreground start, mid, and end colors. In order to see how this looks, choose the current value to be equal to the max value to see the full arc gradient. Note: the current value has no effect on the output of the images - it is merely there to see how the arc would look at a given value.
+![animation4](docs/how-to-5.gif)
 
 6. For the single arc, you may select if text should appear in the center. You may also select the text color and the units of the subtext.
+![animation5](docs/how-to-6.gif)
 
 7. Once you have modified each arc to your preference, click the Generate Images button to generate each permutation of images for the given arc structure.
+![animation6](docs/how-to-7.gif)
 
 8. The images should download in a zip file.
+
+9. Repeat for all the other arcs if needed.
 
 Coming soon - sample WatchKit instructions/app using the images generated using the RadialChartImageGenerator.
 
