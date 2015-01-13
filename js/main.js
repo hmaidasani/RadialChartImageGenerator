@@ -166,7 +166,7 @@ function generateImages(el) {
     setTimeout(function() {
         var canvasList = $($(el).attr('chart-box') + ' canvas');
         var can = document.createElement('canvas');
-        offset = 60;
+        offset = 0;
         can.width = 300 + offset;
         can.height = 300 + offset;
         var ctx = can.getContext('2d');
