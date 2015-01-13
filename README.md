@@ -25,10 +25,10 @@ A simple tool that generates images for animating radial progress charts for the
 1. Go to http://hmaidasani.github.io/RadialChartImageGenerator/.
 
 2. Decide on whether you need a single, double, or triple arc radial chart.
-
 ![animation1](docs/how-to-2.png)
 
 3. Choose the max value or the capacity of the appropriate arc.
+![animation1](docs/how-to-3.gif)
 
 4. Choose the arc background color.
 
