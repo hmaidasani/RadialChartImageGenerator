@@ -41,7 +41,7 @@ A simple tool that generates images for animating radial progress charts for the
 6. For the single arc, you may select if text should appear in the center. You may also select the text color and the units of the subtext.
 ![animation5](docs/how-to-6.gif)
 
-7. Once you have modified each arc to your preference, click the Generate Images button to generate each permutation of images for the given arc structure.
+7. Once you have modified each arc to your preference, click the Generate Images button to generate each permutation of images for the given arc structure. Enter the filename prefix of your choice and click on Continue.
 ![animation6](docs/how-to-7.gif)
 
 8. The images should download in a zip file.

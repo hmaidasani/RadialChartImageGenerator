@@ -179,11 +179,11 @@ function showFilenamePrompt(el) {
         $('#double-file-output').removeClass('hidden');
         $('#triple-file-output').removeClass('hidden');
     }
-
-    $('#filenamePrompt').modal('show')
+    $('#filenamePrompt').modal('show');
 }
 
 function generateImages(el) {
+    $('#filenamePrompt').modal('hide');
     var loading_screen = pleaseWait({
       logo: "",
       backgroundColor: 'rgba(0,0,0,0.7)',
