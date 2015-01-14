@@ -114,7 +114,12 @@ $(function($) {
             if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
-        });
+    });
+
+
+    $('#file-prefix').keyup(function (e) {
+        $('#file-prefix-output').text($(this).val());
+    });
 });
 
 
@@ -157,6 +162,27 @@ function changeArc(arcId, dataChange, value) {
     }
 }
 
+function showFilenamePrompt(el) {
+    chart = $(el).attr('chart-box');
+    $('#filenamePrompt-submit').attr('chart-box', chart);
+    chart = chart.replace('#', '');  
+    chart = chart.replace('arc', '');
+    $('#file-prefix').val(chart);
+    $('#file-prefix-output').text(chart);
+    if(chart.indexOf('single') > -1) {
+        $('#double-file-output').addClass('hidden');
+        $('#triple-file-output').addClass('hidden');
+    } else if(chart.indexOf('double') > -1) {
+        $('#double-file-output').removeClass('hidden');
+        $('#triple-file-output').addClass('hidden');
+    } else if(chart.indexOf('triple') > -1) {
+        $('#double-file-output').removeClass('hidden');
+        $('#triple-file-output').removeClass('hidden');
+    }
+
+    $('#filenamePrompt').modal('show')
+}
+
 function generateImages(el) {
     var loading_screen = pleaseWait({
       logo: "",
@@ -164,6 +190,7 @@ function generateImages(el) {
       loadingHtml: "<p class='loading-message'>Generating images. Please wait a minute.</p><div class='sk-spinner sk-spinner-three-bounce'><div class='sk-bounce1'></div><div class='sk-bounce2'></div><div class='sk-bounce3'></div></div>"
     });
     setTimeout(function() {
+        var filePrefix = $('#file-prefix').val();
         var canvasList = $($(el).attr('chart-box') + ' canvas');
         var can = document.createElement('canvas');
         offset = 0;
@@ -185,7 +212,7 @@ function generateImages(el) {
                         for(x = 0; x < canvasList.length; x++) {
                             ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
                         }
-                        filename = 'triple_'+i+'-'+j+'-'+k+".png";
+                        filename = filePrefix+i+'-'+j+'-'+k+".png";
                         img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                         ctx.clearRect(0, 0, can.width, can.height);
                     }
@@ -200,7 +227,7 @@ function generateImages(el) {
                     for(x = 0; x < canvasList.length; x++) {
                         ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
                     }
-                    filename = 'double_'+i+'-'+j+".png";
+                    filename = filePrefix+i+'-'+j+".png";
                     img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                     ctx.clearRect(0, 0, can.width, can.height);
                 }
@@ -245,7 +272,7 @@ function generateImages(el) {
                     ctx.textBaseline = 'middle';
                     ctx.fillText(value, (can.width/2), (can.height/2)+35);
                 }
-                filename = 'single_'+i+".png";
+                filename = filePrefix+i+".png";
                 img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                 ctx.clearRect(0, 0, can.width, can.height);
             }

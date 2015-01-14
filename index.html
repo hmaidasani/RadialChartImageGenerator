@@ -32,9 +32,9 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" chart-box="#single-arc" onclick="generateImages(this)">Generate Images</button>
+                    <button class="btn btn-primary" chart-box="#single-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                     <div class="chart-options"></div>
-                    <button class="btn btn-primary" chart-box="#single-arc" onclick="generateImages(this)">Generate Images</button>
+                    <button class="btn btn-primary" chart-box="#single-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                 </div>
 
                 <div class="col-md-4">
@@ -50,9 +50,9 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" chart-box="#double-arc" onclick="generateImages(this)">Generate Images</button>
+                    <button class="btn btn-primary" chart-box="#double-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                     <div class="chart-options"></div>
-                    <button class="btn btn-primary" chart-box="#double-arc" onclick="generateImages(this)">Generate Images</button>
+                    <button class="btn btn-primary" chart-box="#double-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                 </div>
 
                 <div class="col-md-4">
@@ -72,9 +72,9 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" chart-box="#triple-arc" onclick="generateImages(this)">Generate Images</button>
+                    <button class="btn btn-primary" chart-box="#triple-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                     <div class="chart-options"></div>
-                    <button class="btn btn-primary" chart-box="#triple-arc" onclick="generateImages(this)">Generate Images</button>
+                    <button class="btn btn-primary" chart-box="#triple-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                 </div>
      
             </div>
@@ -85,6 +85,36 @@
 
             </div>
         </footer>
+
+        <!-- Modal -->
+        <div class="modal fade" id="filenamePrompt" tabindex="-1" role="dialog" aria-labelledby="filenamePrompt" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Choose Filename</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="file-prefix" class="control-label">Filename Prefix:</label>
+                    <input type="text" class="form-control" id="file-prefix" value="prefix">
+                </div>
+                </form>
+                <h5>
+                    An example using the above file prefix:
+                </h5>
+                <span id="file-prefix-output">prefix</span><span id="single-file-output">3</span><span id="double-file-output">-5</span><span id="triple-file-output">-2</span>.png
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="filenamePrompt-submit" chart-box="#" onclick="generateImages(this)">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <script src="js/bootstrap/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/jscolor/jscolor.js"></script>
         <script type="text/javascript" src="js/jszip/jszip.min.js"></script>
