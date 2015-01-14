@@ -54,4 +54,4 @@ Coming soon - sample WatchKit instructions/app using the images generated using 
 
 ## Contact & Feature Requests
 
-Send all of your questions and feature requests to <hmaidasani@gmail.com> or add your issues to the issues section of git repository.
+Report all of your questions and feature requests to the issues section of git repository.
