@@ -20,6 +20,9 @@ body{
 		font-size: 14px;
 	}
 }
+.nav a {
+	color: #000 !important;
+}
 .charts-row {
 	text-align: center;
 }
