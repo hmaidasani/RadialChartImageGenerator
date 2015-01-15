@@ -15,6 +15,11 @@ body{
 .navbar .navbar-brand {
 	color: #111;
 }
+@media (max-width: 420px) {
+	.navbar .navbar-brand {
+		font-size: 14px;
+	}
+}
 .charts-row {
 	text-align: center;
 }
