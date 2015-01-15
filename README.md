@@ -52,6 +52,6 @@ A simple tool that generates images for animating radial progress charts for the
 
 Coming soon - sample WatchKit instructions/app using the images generated using the RadialChartImageGenerator.
 
-## Contact & Feature Requests
+## Questions & Feature Requests
 
 Report all of your questions and feature requests to the issues section of git repository.
