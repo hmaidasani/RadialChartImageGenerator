@@ -36,6 +36,7 @@ $(function($) {
         var divoptionrow = document.createElement('div');
         $(divoptions).append(divoptionrow);
         $(divoptionrow).addClass('option-row');
+        $(divoptionrow).addClass(option.replace(/ /g, '-').toLowerCase());
         $(divoptionrow).append("<div class='text'>"+option+":</div>");
 
         var divinputarea = document.createElement('div');
@@ -122,6 +123,7 @@ $(function($) {
         var divoptionrow = document.createElement('div');
         $(divoptions).append(divoptionrow);
         $(divoptionrow).addClass('option-row');
+        $(divoptionrow).addClass('text-color');
         $(divoptionrow).append("<label class='checkbox-inline'>Show Text:<input class='text-checkbox' type='checkbox' value='' checked data='all-text' arc-id='#"+arcId+"'></label>");
         $(divoptionrow).append("<div class='text'>"+'Color'+":</div>");
         var divinputarea = document.createElement('div');
@@ -165,6 +167,7 @@ $(function($) {
         var divoptionrow = document.createElement('div');
         $(divoptions).append(divoptionrow);
         $(divoptionrow).addClass('option-row');
+        $(divoptionrow).addClass('sub-text');
         $(divoptionrow).append("<label class='checkbox-inline'>Subtext:<input class='text-checkbox' type='checkbox' value='' checked data='only-subtext' arc-id='#"+arcId+"'></label>");
         $(divoptionrow).append("<div class='text'>"+'Units'+":</div>");
         var divinputarea = document.createElement('div');
@@ -204,4 +207,8 @@ $(function($) {
 
     }
   }
+
+  $('.options').each(function(){
+    $(this).find('[class*=foreground]').wrapAll("<div class='foreground-colors' />");
+  });
 });

@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/please-wait/please-wait.css">
+        <link rel="stylesheet" href="css/intro/intro.min.css">
         <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
         <script src="js/jquery/jquery.min.js"></script>
         <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
@@ -27,7 +28,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-main">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://github.com/hmaidasani/RadialChartImageGenerator" target="_blank">How To Use?</a></li>
+                        <li><a href="https://github.com/hmaidasani/RadialChartImageGenerator" target="_blank">Documentation</a></li>
+                        <li>
+                            <button type="button" id="how-to-btn" class="btn btn-primary navbar-btn">How to use?</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -45,9 +49,9 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" chart-box="#single-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
+                    <button class="btn btn-primary generate-btn" chart-box="#single-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                     <div class="chart-options"></div>
-                    <button class="btn btn-primary" chart-box="#single-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
+                    <button class="btn btn-primary generate-btn" chart-box="#single-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                 </div>
 
                 <div class="col-md-4">
@@ -63,9 +67,9 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" chart-box="#double-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
+                    <button class="btn btn-primary generate-btn" chart-box="#double-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                     <div class="chart-options"></div>
-                    <button class="btn btn-primary" chart-box="#double-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
+                    <button class="btn btn-primary generate-btn" chart-box="#double-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                 </div>
 
                 <div class="col-md-4">
@@ -85,9 +89,9 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" chart-box="#triple-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
+                    <button class="btn btn-primary generate-btn" chart-box="#triple-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                     <div class="chart-options"></div>
-                    <button class="btn btn-primary" chart-box="#triple-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
+                    <button class="btn btn-primary generate-btn" chart-box="#triple-arc" onclick="showFilenamePrompt(this)">Generate Images</button>
                 </div>
      
             </div>
@@ -133,5 +137,6 @@
         <script type="text/javascript" src="js/jszip/jszip.min.js"></script>
         <script type="text/javascript" src="js/filesaver/FileSaver.min.js"></script>
         <script type="text/javascript" src="js/please-wait/please-wait.min.js"></script>
+        <script type="text/javascript" src="js/intro/intro.min.js"></script>
     </body>
 </html>

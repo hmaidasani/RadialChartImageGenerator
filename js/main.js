@@ -120,6 +120,60 @@ $(function($) {
     $('#file-prefix').keyup(function (e) {
         $('#file-prefix-output').text($(this).val());
     });
+
+
+    $('#how-to-btn').click(function(e){
+        var intro = introJs();
+        intro.setOptions({
+            steps: [
+              { 
+                intro: "First, decide on whether you need a single, double, or triple arc radial chart."
+              },
+              {
+                element: '.options .max-value',
+                intro: "Choose the max value or the capacity of the appropriate arc.",
+                position: 'right'
+              },
+              {
+                element: '.options .background-color',
+                intro: "Choose the arc background color.",
+                position: 'right'
+              },
+              {
+                element: '.options .foreground-colors',
+                intro: 'Decide the color scheme for each appropriate arc. If you would like a gradient color scheme, choose three different colors for the foreground start, mid, and end colors.',
+                position: 'right'
+              },
+              {
+                element: '.options .current-value',
+                intro: "<div>In order to see how the full arc colors look, choose the current value to be equal to the max value.</div><div><b>Note: the current value has no effect on the output of the images - it is merely there to see how the arc would look at a given value.</b></div>",
+                position: 'right'
+              },
+              {
+                element: '.options .text-color',
+                intro: 'For the single arc, you may select if text should be visible in the center. You may also select the text color.',
+                position: 'right'
+              },
+              {
+                element: '.options .sub-text',
+                intro: 'You may also select if subtext should be visible and the units to show.',
+                position: 'right'
+              },
+              {
+                element: '.generate-btn',
+                intro: 'Click Generate Images to generate each permutation of images for the given arc structure. Enter the filename prefix of your choice and click on Continue.',
+                position: 'right'
+              },
+              { 
+                intro: "The images should download in a zip file."
+              },
+              { 
+                intro: "Repeat for all the other arcs if needed."
+              }
+            ]
+          });
+          intro.start();
+        });
 });
 
 
@@ -299,3 +353,6 @@ function hexToRgb(hex) {
         b: parseInt(result[3], 16)/255
     } : null;
 }
+
+
+

@@ -165,3 +165,14 @@ Spinner by https://github.com/tobiasahlin/SpinKit
 /*margin-top: 4px \9;*/
  margin-left: 5px;
 }
+
+.introjs-helperNumberLayer {
+	display: none !important;
+}
+.introjs-tooltip {
+	top: 0 !important;
+}
+a:focus { 
+ outline: none;
+ text-decoration: none;
+}
