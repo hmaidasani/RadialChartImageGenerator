@@ -1,3 +1,9 @@
+/*!
+ * RadialChartImageGenerator
+ * Copyright 2015 Hitesh Maidasani
+ * Licensed under MIT (https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/LICENSE)
+*/
+
 $(function($) {
     $(".knob").knob({
     });

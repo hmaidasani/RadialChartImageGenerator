@@ -1,3 +1,9 @@
+/*!
+ * RadialChartImageGenerator
+ * Copyright 2015 Hitesh Maidasani
+ * Licensed under MIT (https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/LICENSE)
+*/
+
 $(function($) {
   chartcolList = $('.charts-row .col-md-4');
   for(i = 0; i < chartcolList.length; i++) {
