@@ -52,7 +52,7 @@ A simple tool that generates images for animating radial progress charts for the
 
 Here are some sample WatchKit apps using the images generated using the RadialChartImageGenerator.
 
-* Simple single arc app
+* Simple single arc app - [Radial - Single Arc.zip](docs/Radial\ -\ Single\ Arc.zip)
 
 * Simple triple arc app
 
