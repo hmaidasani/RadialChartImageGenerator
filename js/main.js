@@ -122,12 +122,6 @@ $(function($) {
             }
     });
 
-
-    $('#file-prefix').keyup(function (e) {
-        $('#file-prefix-output').text($(this).val());
-    });
-
-
     $('#how-to-btn').click(function(e){
         var intro = introJs();
         intro.setOptions({
@@ -227,19 +221,83 @@ function showFilenamePrompt(el) {
     $('#filenamePrompt-submit').attr('chart-box', chart);
     chart = chart.replace('#', '');  
     chart = chart.replace('arc', '');
-    $('#file-prefix').val(chart);
-    $('#file-prefix-output').text(chart);
-    if(chart.indexOf('single') > -1) {
-        $('#double-file-output').addClass('hidden');
-        $('#triple-file-output').addClass('hidden');
-    } else if(chart.indexOf('double') > -1) {
-        $('#double-file-output').removeClass('hidden');
-        $('#triple-file-output').addClass('hidden');
-    } else if(chart.indexOf('triple') > -1) {
-        $('#double-file-output').removeClass('hidden');
-        $('#triple-file-output').removeClass('hidden');
-    }
+    // $('#file-prefix').val(chart);
+    // $('#file-prefix-output').text(chart);
+    $("#merge-checkbox").bootstrapSwitch();
+    $("#merge-checkbox").bootstrapSwitch('state', false);
+    handleFilenamePromptEvents(chart, false);
+
+    $('#merge-checkbox').on('switchChange.bootstrapSwitch', function(event, state) {
+      handleFilenamePromptEvents($("#merge-checkbox").attr('chart-box'), state)
+    });
+
+    $('.file-prefix').keyup(function (e) {
+        $('#file-prefix-output').text($(this).val());
+    });
+    $('.file-prefix').focus(function (e) {
+        $('#file-prefix-output').text($(this).val());
+    });
+
+    $('#question-merge').tooltip({title: "This will merge all the arcs into a single image", placement: "right"});
     $('#filenamePrompt').modal('show');
+}
+
+function handleFilenamePromptEvents(chart, mergeState) {
+    if(!mergeState) { //called on init, unmerged images
+        if(chart.indexOf('single') > -1) {
+            $('#merge-group').hide();
+            $("#merge-checkbox").attr('chart-box', '');
+            $("#merge-checkbox").attr('chart-box', chart);
+            $('#filename-group-outer').hide();
+            $('#filename-group-middle').hide();
+            $('#filename-group-inner').hide();
+            $('#filename-group').show();
+            $('#file-prefix').val("single");
+            $('#file-prefix-output').text("prefix");
+            $('#double-file-output').addClass('hidden');
+            $('#triple-file-output').addClass('hidden');
+        } else if(chart.indexOf('double') > -1) {
+            $('#merge-group').show();
+            $("#merge-checkbox").attr('chart-box', '');
+            $("#merge-checkbox").attr('chart-box', chart);
+            $('#filename-group-outer').show();
+            $('#filename-group-middle').hide();
+            $('#filename-group-inner').show();
+            $('#filename-group').hide();
+            $('#file-prefix-output').text("prefix");
+            $('#double-file-output').addClass('hidden');
+            $('#triple-file-output').addClass('hidden');
+        } else if(chart.indexOf('triple') > -1) {
+            $('#merge-group').show();
+            $("#merge-checkbox").attr('chart-box', '');
+            $("#merge-checkbox").attr('chart-box', chart);
+            $('#filename-group-outer').show();
+            $('#filename-group-middle').show();
+            $('#filename-group-inner').show();
+            $('#filename-group').hide();
+            $('#file-prefix-output').text("prefix");
+            $('#double-file-output').addClass('hidden');
+            $('#triple-file-output').addClass('hidden');
+        }
+    } else { //merged images
+        if(chart.indexOf('double') > -1) {
+            $('#filename-group-outer').hide();
+            $('#filename-group-middle').hide();
+            $('#filename-group-inner').hide();
+            $('#filename-group').show();
+            $('#file-prefix-output').text("prefix");
+            $('#double-file-output').removeClass('hidden');
+            $('#triple-file-output').addClass('hidden');
+        } else if(chart.indexOf('triple') > -1) {
+            $('#filename-group-outer').hide();
+            $('#filename-group-middle').hide();
+            $('#filename-group-inner').hide();
+            $('#filename-group').show();
+            $('#file-prefix-output').text("prefix");
+            $('#double-file-output').removeClass('hidden');
+            $('#triple-file-output').removeClass('hidden');
+        }
+    }
 }
 
 function generateImages(el) {
@@ -250,7 +308,11 @@ function generateImages(el) {
       loadingHtml: "<p class='loading-message'>Generating images. Please wait a minute.</p><div class='sk-spinner sk-spinner-three-bounce'><div class='sk-bounce1'></div><div class='sk-bounce2'></div><div class='sk-bounce3'></div></div>"
     });
     setTimeout(function() {
+        var merge = $('#merge-checkbox').bootstrapSwitch('state');
         var filePrefix = $('#file-prefix').val();
+        var filePrefixOuter = $('#outer-file-prefix').val();
+        var filePrefixMiddle = $('#middle-file-prefix').val();
+        var filePrefixInner = $('#inner-file-prefix').val();
         var canvasList = $($(el).attr('chart-box') + ' canvas');
         var can = document.createElement('canvas');
         offset = 0;
@@ -262,34 +324,69 @@ function generateImages(el) {
         var img = zip.folder("images");
 
         if(canvasList.length == 3) {
-            for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
-                for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
-                    for(k = parseInt($(canvasList[2]).next().attr('data-min')); k <= parseInt($(canvasList[2]).next().attr('data-max')); k++) {
-                        changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
-                        changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j);
-                        changeArc('#'+$(canvasList[2]).next().attr('id'), 'current-value', k);
-                        //merge arcs
-                        for(x = 0; x < canvasList.length; x++) {
-                            ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
+            
+            if(merge) {
+                for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
+                    for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
+                        for(k = parseInt($(canvasList[2]).next().attr('data-min')); k <= parseInt($(canvasList[2]).next().attr('data-max')); k++) {
+                            changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
+                            changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j);
+                            changeArc('#'+$(canvasList[2]).next().attr('id'), 'current-value', k);
+                            //merge arcs
+                            for(x = 0; x < canvasList.length; x++) {
+                                ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
+                            }
+                            filename = filePrefix+i+'-'+j+'-'+k+".png";
+                            img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
+                            ctx.clearRect(0, 0, can.width, can.height);
                         }
-                        filename = filePrefix+i+'-'+j+'-'+k+".png";
+                    }
+                }
+            } else {
+                for(x = 0; x < canvasList.length; x++) {
+                    for(i = parseInt($(canvasList[x]).next().attr('data-min')); i <= parseInt($(canvasList[x]).next().attr('data-max')); i++) {
+                        changeArc('#'+$(canvasList[x]).next().attr('id'), 'current-value' , i);
+                        ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
+                        if(x === 0)
+                            filename = filePrefixOuter;
+                        if(x === 1)
+                            filename = filePrefixMiddle;
+                        if(x === 2)
+                            filename = filePrefixInner;
+                        filename += i+".png";
                         img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                         ctx.clearRect(0, 0, can.width, can.height);
                     }
                 }
             }
         } else if(canvasList.length == 2) {
-            for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
-                for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
-                    changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
-                    changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j);
-                    //merge arcs
-                    for(x = 0; x < canvasList.length; x++) {
-                        ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
+            if(merge) {
+                for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
+                    for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
+                        changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
+                        changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j);
+                        //merge arcs
+                        for(x = 0; x < canvasList.length; x++) {
+                            ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
+                        }
+                        filename = filePrefix+i+'-'+j+".png";
+                        img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
+                        ctx.clearRect(0, 0, can.width, can.height);
                     }
-                    filename = filePrefix+i+'-'+j+".png";
-                    img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
-                    ctx.clearRect(0, 0, can.width, can.height);
+                }
+            } else {
+                for(x = 0; x < canvasList.length; x++) {
+                    for(i = parseInt($(canvasList[x]).next().attr('data-min')); i <= parseInt($(canvasList[x]).next().attr('data-max')); i++) {
+                        changeArc('#'+$(canvasList[x]).next().attr('id'), 'current-value' , i);
+                        ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
+                        if(x === 0)
+                            filename = filePrefixOuter;
+                        if(x === 1)
+                            filename = filePrefixInner;
+                        filename += i+".png";
+                        img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
+                        ctx.clearRect(0, 0, can.width, can.height);
+                    }
                 }
             }
         } else if(canvasList.length == 1) {

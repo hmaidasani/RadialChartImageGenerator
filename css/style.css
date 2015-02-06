@@ -182,3 +182,8 @@ a:focus {
  outline: none;
  text-decoration: none;	
 }
+#question-merge {
+	background-color: #E2E2E2;
+	border-radius: 30px;
+	padding: 2px 6px;
+}

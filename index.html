@@ -8,6 +8,7 @@
     <head>
         <title>Radial Bar Chart Generator for Apple Watch</title>
         <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-switch.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/please-wait/please-wait.css">
         <link rel="stylesheet" href="css/intro/intro.min.css">
@@ -114,19 +115,48 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Choose Filename</h4>
+                <h4 class="modal-title" id="myModalLabel">Choose Image Options</h4>
               </div>
               <div class="modal-body">
                 <form>
-                <div class="form-group">
-                    <label for="file-prefix" class="control-label">Filename Prefix:</label>
-                    <input type="text" class="form-control" id="file-prefix" value="prefix">
-                </div>
+                    <div id="merge-group" class="form-group">
+                        <label for="merge-checkbox" class="control-label">Merge Images:</label>
+                        <input type="checkbox" name="merge-checkbox" id="merge-checkbox">
+                        <span id="question-merge">?</span>
+                    </div>
+                    <div id="filename-group" class="form-group">
+                        <label for="file-prefix" class="control-label">Filename Prefix:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control file-prefix" id="file-prefix" value="prefix">
+                            <span class="input-group-addon">3.png</span>
+                        </div>
+                    </div>
+                    <div id="filename-group-outer" class="form-group">
+                        <label for="file-prefix" class="control-label">Outer Arc Filename Prefix:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control file-prefix" id="outer-file-prefix" value="outer">
+                            <span class="input-group-addon">3.png</span>
+                        </div>
+                    </div>
+                    <div id="filename-group-middle" class="form-group">
+                        <label for="file-prefix" class="control-label">Middle Arc Filename Prefix:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control file-prefix" id="middle-file-prefix" value="middle">
+                            <span class="input-group-addon">5.png</span>
+                        </div>
+                    </div>
+                    <div id="filename-group-inner" class="form-group">
+                        <label for="file-prefix" class="control-label">Inner Arc Filename Prefix:</label>
+                        <div class="input-group">                        
+                            <input type="text" class="form-control file-prefix" id="inner-file-prefix" value="inner">
+                            <span class="input-group-addon">2.png</span>
+                        </div>
+                    </div>
                 </form>
                 <h5>
                     An example using the above file prefix:
                 </h5>
-                <span id="file-prefix-output">prefix</span><span id="single-file-output">3</span><span id="double-file-output">-5</span><span id="triple-file-output">-2</span>.png
+                <span id="file-prefix-output">prefix</span><span id="single-file-output">3</span><span id="double-file-output" class="hidden">-5</span><span id="triple-file-output" class="hidden">-2</span>.png
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -138,6 +168,7 @@
 
 
         <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script src="js/bootstrap/bootstrap-switch.min.js"></script>
         <script type="text/javascript" src="js/jscolor/jscolor.js"></script>
         <script type="text/javascript" src="js/jszip/jszip.min.js"></script>
         <script type="text/javascript" src="js/filesaver/FileSaver.min.js"></script>
