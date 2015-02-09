@@ -52,11 +52,11 @@ A simple tool that generates images for animating radial progress charts for the
 
 Here are some sample WatchKit apps using the images generated using the RadialChartImageGenerator.
 
-* Simple single arc app - [Radial - Single Arc.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/docs/Radial%20-%20Single%20Arc.zip?raw=true)
+* Simple single arc app - [Radial - Single Arc.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/examples/Radial%20-%20Single%20Arc.zip?raw=true)
 
-* Simple triple arc app - [Radial - Triple Arc.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/docs/Radial%20-%20Triple%20Arc.zip?raw=true)
+* Simple triple arc app - [Radial - Triple Arc.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/examples/Radial%20-%20Triple%20Arc.zip?raw=true)
 
-* Health and Activity app - [Health.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/docs/Health.zip?raw=true)
+* Health and Activity app - [Health.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/examples/Health.zip?raw=true)
 
 ## Questions & Feature Requests
 
