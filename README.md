@@ -56,7 +56,7 @@ Here are some sample WatchKit apps using the images generated using the RadialCh
 
 * Simple triple arc app - [Radial - Triple Arc.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/docs/Radial%20-%20Triple%20Arc.zip?raw=true)
 
-* Health and Activity app 
+* Health and Activity app - [Health.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/docs/Health.zip?raw=true)
 
 ## Questions & Feature Requests
 
