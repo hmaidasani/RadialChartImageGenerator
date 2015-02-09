@@ -50,7 +50,7 @@ A simple tool that generates images for animating radial progress charts for the
 
 #### Examples
 
-Here are some sample WatchKit apps using the images generated using the RadialChartImageGenerator.
+Here are some sample WatchKit apps using the images generated using the RadialChartImageGenerator. Note: the most recent version of Xcode is required to run these.
 
 * Simple single arc app - [Radial - Single Arc.zip](https://github.com/hmaidasani/RadialChartImageGenerator/blob/master/examples/Radial%20-%20Single%20Arc.zip?raw=true)
 
