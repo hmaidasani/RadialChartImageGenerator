@@ -19,7 +19,6 @@ $(function($) {
       fgcolormid = $(arcInputs[j]).attr('data-fgcolormid');
       fgcolorend = $(arcInputs[j]).attr('data-fgcolorend');
       textcolor = $(arcInputs[j]).attr('data-inputColor');
-
       data = {
         "Current Value" : val, 
         "Max Value" : max, 
@@ -28,192 +27,120 @@ $(function($) {
         "Foreground Color End" : fgcolorend, 
         "Background Color" : bgcolor,
       };
-
       titleArr = arcId.split('-');
       title = titleArr[1].charAt(0).toUpperCase() + titleArr[1].slice(1) + " " + titleArr[2].charAt(0).toUpperCase() + titleArr[2].slice(1);
       
-      var divoptions = document.createElement('div');
-      $(divoptions).addClass('options');
-      optionsDiv.append(divoptions);
-
-      $(divoptions).append("<h4>"+title+"</h4>");
-
+      var divoptions = $('<div/>', {class:'options'}).append($('<h4/>', {text:title})).appendTo(optionsDiv);
       for(option in data) {
-        var divoptionrow = document.createElement('div');
-        $(divoptions).append(divoptionrow);
-        $(divoptionrow).addClass('option-row');
-        $(divoptionrow).addClass(option.replace(/ /g, '-').toLowerCase());
-        $(divoptionrow).append("<div class='text'>"+option+":</div>");
-
-        var divinputarea = document.createElement('div');
-        $(divinputarea).addClass('input-area');
-        $(divoptionrow).append(divinputarea);
-
-        var divinputgroup = document.createElement('div');
-        $(divinputgroup).addClass('input-group');
-        $(divinputarea).append(divinputgroup);
-
-        var inputbox = document.createElement('input');
-        $(inputbox).attr('type', 'text');
-        $(inputbox).attr('name', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase());
-        $(inputbox).addClass('form-control');
-        $(inputbox).addClass('input-number');
-        $(inputbox).attr('default-val', data[option]);
-        $(inputbox).attr('value', data[option]);
-        $(inputbox).attr('arc-id', "#"+arcId);
-        $(inputbox).attr('data-mod', option.split(' ').join('-').toLowerCase());
-
+        var divoptionrow = $('<div/>', {class:'option-row '+option.replace(/ /g, '-').toLowerCase()}).appendTo(divoptions).append($('<div/>', {class:'text', text:option}));
+        var divinputarea = $('<div/>', {class:'input-area'}).appendTo(divoptionrow);
+        var divinputgroup = $('<div/>', {class:'input-group'}).appendTo(divinputarea);
+        var inputbox = $('<input/>', {
+          class:'form-control input-number',
+          'type':'text',
+          'name':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase(),
+          'default-val':data[option],
+          'value':data[option],
+          'arc-id':"#"+arcId,
+          'data-mod':option.split(' ').join('-').toLowerCase()
+        });
         if(typeof data[option] === "number") {
-          $(inputbox).addClass('only-number');
-          $(inputbox).attr('min', '0');
-          $(inputbox).attr('max', '1000000');
-
           // minus button
-          var spaninputbtnminus = document.createElement('span');
-          $(spaninputbtnminus).addClass('input-group-btn');
-          var btnminus = document.createElement('button');
-          $(spaninputbtnminus).append(btnminus);
-          $(btnminus).attr('type', 'button');
-          $(btnminus).addClass('btn');
-          $(btnminus).addClass('btn-default');
-          $(btnminus).addClass('btn-number');
-          $(btnminus).attr('data-type', 'minus');
-          $(btnminus).attr('data-field', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase());
-          var spanglyphminus = document.createElement('span');
-          $(spanglyphminus).addClass('glyphicon');
-          $(spanglyphminus).addClass('glyphicon-minus');
-          $(btnminus).append(spanglyphminus);
-
+          var spaninputbtnminus = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
+          var btnminus = $('<button/>', {
+            class:'btn btn-default btn-number',
+            'type':'button',
+            'data-type':'minus',
+            'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
+          }).appendTo(spaninputbtnminus).append($('<span/>', {class:'glyphicon glyphicon-minus'}));
+          // add input
+          $(inputbox).addClass('only-number').attr({'min':'0', 'max':'1000000'}).appendTo(divinputgroup);
           // plus button
-          var spaninputbtnplus = document.createElement('span');
-          $(spaninputbtnplus).addClass('input-group-btn');
-          var btnplus = document.createElement('button');
-          $(spaninputbtnplus).append(btnplus);
-          $(btnplus).attr('type', 'button');
-          $(btnplus).addClass('btn');
-          $(btnplus).addClass('btn-default');
-          $(btnplus).addClass('btn-number');
-          $(btnplus).attr('data-type', 'plus');
-          $(btnplus).attr('data-field', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase());
-          var spanglyphplus = document.createElement('span');
-          $(spanglyphplus).addClass('glyphicon');
-          $(spanglyphplus).addClass('glyphicon-plus');
-          $(btnplus).append(spanglyphplus);
-
-          // add minus, input, plus
-          $(divinputgroup).append(spaninputbtnminus);
-          $(divinputgroup).append(inputbox);
-          $(divinputgroup).append(spaninputbtnplus);
+          var spaninputbtnplus = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
+          var btnplus = $('<button/>', {
+            class:'btn btn-default btn-number',
+            'type':'button',
+            'data-type':'plus',
+            'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
+          }).appendTo(spaninputbtnplus).append($('<span/>', {class:'glyphicon glyphicon-plus'}));
         } else {
-          $(inputbox).addClass('color');
-          $(inputbox).addClass('{hash:true,caps:false}');
-          //add input
+          $(inputbox).addClass('color {hash:true,caps:false}');
+          // add input
           $(divinputgroup).append(inputbox);
         }
-          var spaninputbtnrefresh = document.createElement('span');
-          $(divinputgroup).append(spaninputbtnrefresh);
-          $(spaninputbtnrefresh).addClass('input-group-btn');
-          var btnrefresh = document.createElement('button');
-          $(spaninputbtnrefresh).append(btnrefresh);
-          $(btnrefresh).attr('type', 'button');
-          $(btnrefresh).addClass('btn');;
-          $(btnrefresh).addClass('btn-refresh');
-          $(btnrefresh).attr('data-type', 'refresh');
-          $(btnrefresh).attr('data-field', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase());
-          var spanglyphrefresh = document.createElement('span');
-          $(spanglyphrefresh).addClass('glyphicon');
-          $(spanglyphrefresh).addClass('glyphicon-refresh');
-          $(btnrefresh).append(spanglyphrefresh);
+        var spaninputbtnrefresh = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
+        var btnrefresh = $('<button/>', {
+          class:'btn btn-refresh',
+          'type':'button',
+          'data-type':'refresh',
+          'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
+        }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
       }
       if(arcInputs.length === 1) {
-        var divoptionrow = document.createElement('div');
-        $(divoptions).append(divoptionrow);
-        $(divoptionrow).addClass('option-row');
-        $(divoptionrow).addClass('text-color');
-        $(divoptionrow).append("<label class='checkbox-inline'>Show Text:<input class='text-checkbox' type='checkbox' value='' checked data='all-text' arc-id='#"+arcId+"'></label>");
-        $(divoptionrow).append("<div class='text'>"+'Color'+":</div>");
-        var divinputarea = document.createElement('div');
-        $(divinputarea).addClass('input-area');
-        $(divoptionrow).append(divinputarea);
+        var divoptionrow = $('<div/>', {class:'option-row text-color'}).appendTo(divoptions)
+        $('<label/>', {class:'checkbox-inline', text:'Show Text:'}).appendTo(divoptionrow)
+        .append($('<input/>', {
+          class:'text-checkbox',
+          'type':'checkbox',
+          'value':'',
+          'arc-id':'#'+arcId,
+          'checked':''
+        }).attr('data','all-text'));
+        $('<div/>', {class:'text', text:'Color:'}).appendTo(divoptionrow);
 
-        var divinputgroup = document.createElement('div');
-        $(divinputgroup).addClass('input-group');
-        $(divinputarea).append(divinputgroup);
-        var inputbox = document.createElement('input');
-        $(inputbox).attr('type', 'text');
-        $(inputbox).attr('name', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'text-color');
-        $(inputbox).addClass('form-control');
-        $(inputbox).addClass('input-number');
-        $(inputbox).addClass('color');
-        $(inputbox).addClass('{hash:true,caps:false}');
-        $(inputbox).attr('default-val', textcolor);
-        $(inputbox).attr('value', textcolor);
-        $(inputbox).attr('arc-id', "#"+arcId);
-        $(inputbox).attr('data-mod', 'text-color');
-        $(divinputgroup).append(inputbox);
+        var divinputarea = $('<div/>', {class:'input-area'}).appendTo(divoptionrow);
+        var divinputgroup = $('<div/>', {class:'input-group'}).appendTo(divinputarea);
+        var inputbox = $('<input/>', {
+          class:'form-control input-number color {hash:true,caps:false}',
+          'type':'text',
+          'name':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'text-color',
+          'default-val':textcolor,
+          'value':textcolor,
+          'arc-id':'#'+arcId,
+          'data-mod':'text-color'
+        }).appendTo(divinputgroup);
 
-        var spaninputbtnrefresh = document.createElement('span');
-        $(divinputgroup).append(spaninputbtnrefresh);
-        $(spaninputbtnrefresh).addClass('input-group-btn');
-        var btnrefresh = document.createElement('button');
-        $(spaninputbtnrefresh).append(btnrefresh);
-        $(btnrefresh).attr('type', 'button');
-        $(btnrefresh).addClass('btn');;
-        $(btnrefresh).addClass('btn-refresh');
-        $(btnrefresh).attr('data-type', 'refresh');
-        $(btnrefresh).attr('data-field', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'text-color');
-        var spanglyphrefresh = document.createElement('span');
-        $(spanglyphrefresh).addClass('glyphicon');
-        $(spanglyphrefresh).addClass('glyphicon-refresh');
-        $(btnrefresh).append(spanglyphrefresh);
+        var spaninputbtnrefresh = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
+        var btnrefresh = $('<button/>', {
+          class:'btn btn-refresh',
+          'type':'button',
+          'data-type':'refresh',
+          'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'text-color'
+        }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
 
+        var divoptionrow = $('<div/>', {class:'option-row sub-text'}).appendTo(divoptions)
+        $('<label/>', {class:'checkbox-inline', text:'Subtext:'}).appendTo(divoptionrow)
+        .append($('<input/>', {
+          class:'text-checkbox',
+          'type':'checkbox',
+          'value':'',
+          'arc-id':'#'+arcId,
+          'checked':''
+        }).attr('data','only-subtext'));
+        $('<div/>', {class:'text', text:'Units:'}).appendTo(divoptionrow);
+        
+        var divinputarea = $('<div/>', {class:'input-area'}).appendTo(divoptionrow);
+        var divinputgroup = $('<div/>', {class:'input-group'}).appendTo(divinputarea);
+        var inputbox = $('<input/>', {
+          class:'form-control input-number single-input',
+          'type':'text',
+          'name':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'subtext-units',
+          'default-val':$('.subtext-units').text(),
+          'value':$('.subtext-units').text(),
+          'arc-id':'#'+arcId,
+          'data-mod':'units'
+        }).appendTo(divinputgroup);
 
-
-
-        var divoptionrow = document.createElement('div');
-        $(divoptions).append(divoptionrow);
-        $(divoptionrow).addClass('option-row');
-        $(divoptionrow).addClass('sub-text');
-        $(divoptionrow).append("<label class='checkbox-inline'>Subtext:<input class='text-checkbox' type='checkbox' value='' checked data='only-subtext' arc-id='#"+arcId+"'></label>");
-        $(divoptionrow).append("<div class='text'>"+'Units'+":</div>");
-        var divinputarea = document.createElement('div');
-        $(divinputarea).addClass('input-area');
-        $(divoptionrow).append(divinputarea);
-
-        var divinputgroup = document.createElement('div');
-        $(divinputgroup).addClass('input-group');
-        $(divinputarea).append(divinputgroup);
-        var inputbox = document.createElement('input');
-        $(inputbox).attr('type', 'text');
-        $(inputbox).attr('name', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'subtext-units');
-        $(inputbox).addClass('form-control');
-        $(inputbox).addClass('input-number');
-        $(inputbox).addClass('single-input');
-        $(inputbox).attr('default-val', $('.subtext-units').text());
-        $(inputbox).attr('value', $('.subtext-units').text());
-        $(inputbox).attr('arc-id', "#"+arcId);
-        $(inputbox).attr('data-mod', 'units');
-        $(divinputgroup).append(inputbox);
-
-        var spaninputbtnrefresh = document.createElement('span');
-        $(divinputgroup).append(spaninputbtnrefresh);
-        $(spaninputbtnrefresh).addClass('input-group-btn');
-        var btnrefresh = document.createElement('button');
-        $(spaninputbtnrefresh).append(btnrefresh);
-        $(btnrefresh).attr('type', 'button');
-        $(btnrefresh).addClass('btn');;
-        $(btnrefresh).addClass('btn-refresh');
-        $(btnrefresh).attr('data-type', 'refresh');
-        $(btnrefresh).attr('data-field', titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'subtext-units');
-        var spanglyphrefresh = document.createElement('span');
-        $(spanglyphrefresh).addClass('glyphicon');
-        $(spanglyphrefresh).addClass('glyphicon-refresh');
-        $(btnrefresh).append(spanglyphrefresh);
+        var spaninputbtnrefresh = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
+        var btnrefresh = $('<button/>', {
+          class:'btn btn-refresh',
+          'type':'button',
+          'data-type':'refresh',
+          'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'subtext-units'
+        }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
       }
-
     }
   }
-
   $('.options').each(function(){
     $(this).find('[class*=foreground]').wrapAll("<div class='foreground-colors' />");
   });
