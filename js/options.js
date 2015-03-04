@@ -19,6 +19,7 @@ $(function($) {
       fgcolormid = $(arcInputs[j]).attr('data-fgcolormid');
       fgcolorend = $(arcInputs[j]).attr('data-fgcolorend');
       textcolor = $(arcInputs[j]).attr('data-inputColor');
+      thickness = Number($(arcInputs[j]).attr('data-thickness'));
       data = {
         "Current Value" : val, 
         "Max Value" : max, 
@@ -26,6 +27,7 @@ $(function($) {
         "Foreground Color Mid" : fgcolormid,
         "Foreground Color End" : fgcolorend, 
         "Background Color" : bgcolor,
+        "Arc Thickness" : thickness
       };
       titleArr = arcId.split('-');
       title = titleArr[1].charAt(0).toUpperCase() + titleArr[1].slice(1) + " " + titleArr[2].charAt(0).toUpperCase() + titleArr[2].slice(1);
@@ -45,12 +47,17 @@ $(function($) {
           'data-mod':option.split(' ').join('-').toLowerCase()
         });
         if(typeof data[option] === "number") {
+          var datastep = 1;
+          if(data[option] % 1 !== 0) {
+            datastep = 0.05;
+          }
           // minus button
           var spaninputbtnminus = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
           var btnminus = $('<button/>', {
             class:'btn btn-default btn-number',
             'type':'button',
             'data-type':'minus',
+            'data-step':datastep,
             'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
           }).appendTo(spaninputbtnminus).append($('<span/>', {class:'glyphicon glyphicon-minus'}));
           // add input
@@ -61,6 +68,7 @@ $(function($) {
             class:'btn btn-default btn-number',
             'type':'button',
             'data-type':'plus',
+            'data-step':datastep,
             'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
           }).appendTo(spaninputbtnplus).append($('<span/>', {class:'glyphicon glyphicon-plus'}));
         } else {

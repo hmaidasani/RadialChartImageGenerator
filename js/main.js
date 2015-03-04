@@ -51,26 +51,28 @@ $(function($) {
         
         fieldName = $(this).attr('data-field');
         type      = $(this).attr('data-type');
+        step = Number($(this).attr('data-step'));
         var input = $("input[name='"+fieldName+"']");
-        var currentVal = parseInt(input.val());
-
+        var currentVal = Number(input.val());
 
         if (!isNaN(currentVal)) {
             if(type == 'minus') {
                 
                 if(currentVal > input.attr('min')) {
-                    input.val(currentVal - 1).change();
+                    curr = (currentVal - step).toFixed(countDecimals(step));
+                    input.val(curr).change();
                 } 
-                if(parseInt(input.val()) == input.attr('min')) {
+                if(Number(input.val()) == Number(input.attr('min'))) {
                     $(this).attr('disabled', true);
                 }
 
             } else if(type == 'plus') {
 
                 if(currentVal < input.attr('max')) {
-                    input.val(currentVal + 1).change();
+                    curr = (currentVal + step).toFixed(countDecimals(step));
+                    input.val(curr).change();
                 }
-                if(parseInt(input.val()) == input.attr('max')) {
+                if(Number(input.val()) == Number(input.attr('max'))) {
                     $(this).attr('disabled', true);
                 }
 
@@ -150,6 +152,11 @@ $(function($) {
                 position: 'right'
               },
               {
+                element: '.options .arc-thickness',
+                intro: "<div>Adjust the thickness of the arc.</div>",
+                position: 'right'
+              },
+              {
                 element: '.options .text-color',
                 intro: 'For the single arc, you may select if text should be visible in the center. You may also select the text color.',
                 position: 'right'
@@ -196,6 +203,9 @@ function changeArc(arcId, dataChange, value) {
     } else if(dataChange === 'background-color') {
         obj = {"bgColor":value, "bgColorMid":value, "bgColorEnd":value};
         $(arcId).attr('data-bgcolor', value);
+    } else if(dataChange === 'arc-thickness') {
+        obj = {"thickness":value};
+        $(arcId).attr('data-thickness', value);
     } else if(dataChange === 'text-color') {
         obj = {"inputColor":value};
         $('.knob').css('color', value);
@@ -457,5 +467,9 @@ function hexToRgb(hex) {
     } : null;
 }
 
+var countDecimals = function (value) {
+    if(Math.floor(value) === value) return 0;
+    return value.toString().split(".")[1].length || 0; 
+}
 
 
