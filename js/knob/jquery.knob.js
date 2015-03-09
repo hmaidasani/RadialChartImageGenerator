@@ -805,20 +805,27 @@
                 
                 c.stroke();
                 
-                if(this.cv == this.o.max){
-                    c.beginPath();
-                    var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.lineWidth);
-                        gradient.addColorStop("0",this.o.fgColorEnd);
-                        gradient.addColorStop("1.0",this.o.fgColorEnd);
-                    c.strokeStyle = r ? gradient : this.fgColor ;
+                var showShadow = $('#'+this.$[0].id).attr('data-shadow');
+                var shadowColor = $('#'+this.$[0].id).attr('data-shadowColor') || $('#'+this.$[0].id).attr('shadow-color');
+                if(showShadow === 'true') {
+                    if(this.cv == this.o.max){
+                        c.beginPath();
+                        var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.lineWidth);
+                            gradient.addColorStop("0",this.o.fgColorEnd);
+                            gradient.addColorStop("1.0",this.o.fgColorEnd);
+                        c.strokeStyle = r ? gradient : this.fgColor ;
 
-                    c.shadowColor = "#555";
-                    c.shadowBlur    = 10;
-                    c.shadowOffsetX = 10; 
-                    c.shadowOffsetY = 0;
-                    c.arc(this.xy, this.xy, this.radius, this.PI2 * 1.74, a.e, a.d);
+                        if(shadowColor)
+                            c.shadowColor = shadowColor;
+                        else
+                            c.shadowColor = "#555555";
+                        c.shadowBlur    = 10;
+                        c.shadowOffsetX = 10; 
+                        c.shadowOffsetY = 0;
+                        c.arc(this.xy, this.xy, this.radius, this.PI2 * 1.74, a.e, a.d);
 
-                    c.stroke();
+                        c.stroke();
+                    }
                 }
              
 

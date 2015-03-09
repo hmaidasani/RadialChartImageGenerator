@@ -7,6 +7,9 @@
 $(function($) {
     $(".knob").knob({
     });
+    $('.shadow-checkbox').change(function() {
+        $($(this).attr('arc-id')).attr('data-shadow', $(this).is(':checked')).trigger("configure");
+    });
     $('.text-checkbox').change(function() {
         if($(this).is(':checked')) {
             if($(this).attr('data') == 'all-text') {
@@ -206,6 +209,8 @@ function changeArc(arcId, dataChange, value) {
     } else if(dataChange === 'arc-thickness') {
         obj = {"thickness":value};
         $(arcId).attr('data-thickness', value);
+    } else if(dataChange === 'shadow-color') {
+        $(arcId).attr('data-shadowColor', value);
     } else if(dataChange === 'text-color') {
         obj = {"inputColor":value};
         $('.knob').css('color', value);

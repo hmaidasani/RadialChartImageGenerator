@@ -20,6 +20,9 @@ $(function($) {
       fgcolorend = $(arcInputs[j]).attr('data-fgcolorend');
       textcolor = $(arcInputs[j]).attr('data-inputColor');
       thickness = Number($(arcInputs[j]).attr('data-thickness'));
+      shadow = $(arcInputs[j]).attr('data-shadow');
+      shadowColor = $(arcInputs[j]).attr('data-shadowColor');
+
       data = {
         "Current Value" : val, 
         "Max Value" : max, 
@@ -84,10 +87,41 @@ $(function($) {
           'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
         }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
       }
+
       // shadow option start
       var divoptionrow = $('<div/>', {class:'option-row shadow-toggle'}).appendTo(divoptions);
+      $('<label/>', {class:'checkbox-inline', text:'Shadow:'}).appendTo(divoptionrow)
+      .append($('<input/>', {
+        class:'shadow-checkbox',
+        'type':'checkbox',
+        'value':'',
+        'arc-id':'#'+arcId,
+        'checked':''
+      }).attr('data','shadow'));
 
+      $('<div/>', {class:'text', text:'Color:'}).appendTo(divoptionrow);
+
+      var divinputarea = $('<div/>', {class:'input-area'}).appendTo(divoptionrow);
+      var divinputgroup = $('<div/>', {class:'input-group'}).appendTo(divinputarea);
+      var inputbox = $('<input/>', {
+        class:'form-control input-number color {hash:true,caps:false}',
+        'type':'text',
+        'name':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'shadow-color',
+        'default-val':shadowColor,
+        'value':shadowColor,
+        'arc-id':'#'+arcId,
+        'data-mod':'shadow-color'
+      }).appendTo(divinputgroup);
+
+      var spaninputbtnrefresh = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
+      var btnrefresh = $('<button/>', {
+        class:'btn btn-refresh',
+        'type':'button',
+        'data-type':'refresh',
+        'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+'shadow-color'
+      }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
       // shadow option end
+
       if(arcInputs.length === 1) {
         var divoptionrow = $('<div/>', {class:'option-row text-color'}).appendTo(divoptions);
         $('<label/>', {class:'checkbox-inline', text:'Show Text:'}).appendTo(divoptionrow)
