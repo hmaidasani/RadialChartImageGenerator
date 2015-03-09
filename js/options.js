@@ -84,8 +84,12 @@ $(function($) {
           'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
         }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
       }
+      // shadow option start
+      var divoptionrow = $('<div/>', {class:'option-row shadow-toggle'}).appendTo(divoptions);
+
+      // shadow option end
       if(arcInputs.length === 1) {
-        var divoptionrow = $('<div/>', {class:'option-row text-color'}).appendTo(divoptions)
+        var divoptionrow = $('<div/>', {class:'option-row text-color'}).appendTo(divoptions);
         $('<label/>', {class:'checkbox-inline', text:'Show Text:'}).appendTo(divoptionrow)
         .append($('<input/>', {
           class:'text-checkbox',

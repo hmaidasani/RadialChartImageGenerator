@@ -1,5 +1,5 @@
 # RadialChartImageGenerator
-A simple tool that generates images for animating radial or circular progress charts for the Apple Watch and WatchKit.
+A simple tool that generates images for animating radial or circular progress charts for the Apple Watch and WatchKit. The charts are referred to as rings, dials, radials or circles.
 
 ![animation1](docs/animate1.gif) ![animation2](docs/animate2.gif) ![animation3](docs/animate3.gif)
 
