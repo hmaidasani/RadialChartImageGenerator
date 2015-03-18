@@ -48,6 +48,8 @@ A simple tool that generates images for animating radial or circular progress ch
 
 9. Repeat for all the other arcs if needed.
 
+10. Import the downloaded image into your WatchKit Xcode project. The below example projects show how this is done.
+
 #### Examples
 
 Here are some sample WatchKit apps using the images generated using the RadialChartImageGenerator. Note: the most recent version of Xcode is required to run these.
