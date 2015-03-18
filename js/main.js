@@ -128,6 +128,7 @@ $(function($) {
     });
 
     $('#how-to-btn').click(function(e){
+        ga('send', 'event', 'button', 'click', 'how-to-btn');
         var intro = introJs();
         intro.setOptions({
             steps: [
@@ -188,6 +189,7 @@ $(function($) {
 
 
 function changeArc(arcId, dataChange, value) {
+    ga('send', 'event', 'button', 'click', 'changeArc', arcId + '_' + dataChange);
 	var obj = {};
     color = $(arcId).css('color');
     if(dataChange === 'max-value') {
@@ -337,6 +339,7 @@ function generateImages(el) {
 
         var zip = new JSZip();
         var img = zip.folder("images");
+        ga('send', 'event', 'button', 'click', 'generateImages', 'arc'+canvasList.length);
 
         if(canvasList.length == 3) {
             
