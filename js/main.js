@@ -189,7 +189,7 @@ $(function($) {
 
 
 function changeArc(arcId, dataChange, value) {
-    ga('send', 'event', 'button', 'click', 'changeArc', arcId + '_' + dataChange);
+    ga('send', 'event', 'button', 'click', 'changeArc_' + arcId + '_' + dataChange);
 	var obj = {};
     color = $(arcId).css('color');
     if(dataChange === 'max-value') {
@@ -339,7 +339,7 @@ function generateImages(el) {
 
         var zip = new JSZip();
         var img = zip.folder("images");
-        ga('send', 'event', 'button', 'click', 'generateImages', 'arc'+canvasList.length);
+        ga('send', 'event', 'button', 'click', 'generateImages_arc'+canvasList.length);
 
         if(canvasList.length == 3) {
             
