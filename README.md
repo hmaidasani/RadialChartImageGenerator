@@ -24,7 +24,7 @@ A simple tool that generates images for animating radial or circular progress ch
 
 #### Instructions
 
-1. Go to http://hmaidasani.github.io/RadialChartImageGenerator/ or open index.html.
+1. Go to http://hmaidasani.github.io/RadialChartImageGenerator/ or open index.html (Chrome and Firefox recommended).
 
 2. Decide on whether you need a single, double, or triple arc radial chart.
 ![animation1](docs/how-to-2.png)

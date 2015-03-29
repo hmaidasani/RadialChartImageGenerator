@@ -185,6 +185,9 @@ $(function($) {
           });
           intro.start();
         });
+
+    var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+    if (isSafari) $('#browser-alert').modal();
 });
 
 
