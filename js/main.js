@@ -33,9 +33,11 @@ $(function($) {
         }
     });
     $('.btn-refresh').click(function(e){
+        ga('send', 'event', 'button', 'click', 'refresh');
         e.preventDefault();
 
         fieldName = $(this).attr('data-field');
+        console.log(fieldName);
         var input = $("input[name='"+fieldName+"']");
         input.val(input.attr('default-val')).trigger('change');
         if(input.hasClass('color')) {
@@ -214,6 +216,9 @@ function changeArc(arcId, dataChange, value) {
     } else if(dataChange === 'arc-thickness') {
         obj = {"thickness":value};
         $(arcId).attr('data-thickness', value);
+    } else if(dataChange === 'data-linecap') {
+        obj = {"lineCap":value};
+        $(arcId).attr('data-linecap', value);
     } else if(dataChange === 'shadow-color') {
         $(arcId).attr('data-shadowColor', value);
     } else if(dataChange === 'text-color') {
@@ -228,8 +233,7 @@ function changeArc(arcId, dataChange, value) {
     }
     obj['inputColor'] = color;
     if(dataChange !== 'current-value') {
-	   $(arcId).attr(dataChange, value).trigger("configure",
-            obj);
+	   $(arcId).attr(dataChange, value).trigger("configure", obj);
     } else if(dataChange === 'current-value') {
         $(arcId).val(value).trigger("change");
         $(arcId).attr('value', value);

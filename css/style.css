@@ -187,3 +187,11 @@ a:focus {
 	border-radius: 30px;
 	padding: 2px 6px;
 }
+
+.linecap-toggle {
+	margin-bottom: 5px;
+}
+.linecap-toggle .control-label {
+	font-weight: 400;
+	margin-right: 5px;
+}

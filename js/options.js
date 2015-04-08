@@ -20,6 +20,7 @@ $(function($) {
       fgcolorend = $(arcInputs[j]).attr('data-fgcolorend');
       textcolor = $(arcInputs[j]).attr('data-inputColor');
       thickness = Number($(arcInputs[j]).attr('data-thickness'));
+      lineStyle = $(arcInputs[j]).attr('data-linecap');
       shadow = $(arcInputs[j]).attr('data-shadow');
       shadowColor = $(arcInputs[j]).attr('data-shadowColor');
 
@@ -37,7 +38,7 @@ $(function($) {
       
       var divoptions = $('<div/>', {class:'options'}).append($('<h4/>', {text:title})).appendTo(optionsDiv);
       for(option in data) {
-        var divoptionrow = $('<div/>', {class:'option-row '+option.replace(/ /g, '-').toLowerCase()}).appendTo(divoptions).append($('<div/>', {class:'text', text:option}));
+        var divoptionrow = $('<div/>', {class:'option-row '+option.replace(/ /g, '-').toLowerCase()}).appendTo(divoptions).append($('<div/>', {class:'text', text:option+':'}));
         var divinputarea = $('<div/>', {class:'input-area'}).appendTo(divoptionrow);
         var divinputgroup = $('<div/>', {class:'input-group'}).appendTo(divinputarea);
         var inputbox = $('<input/>', {
@@ -87,6 +88,23 @@ $(function($) {
           'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
         }).appendTo(spaninputbtnrefresh).append($('<span/>', {class:'glyphicon glyphicon-refresh'}));
       }
+
+      // linecap start
+      var divoptionrow = $('<div/>', {class:'option-row form-group linecap-toggle'}).appendTo(divoptions)
+      .append($('<label/>', {class:'control-label', text:"Line Style:", for:"linecap-checkbox-"+arcId}))
+      .append($('<input/>', {type:"checkbox", name:"linecap-checkbox", id:"linecap-checkbox-"+arcId, 'data-on-text':"Round", 'data-off-text':"Flat", 'arc-id':'#'+arcId}).attr('data','linecap'));
+      $("#linecap-checkbox-"+arcId).bootstrapSwitch('state', true, true);
+      $("#linecap-checkbox-"+arcId).on('switchChange.bootstrapSwitch', function(event, state) {
+        var arc = $(this).attr('arc-id');
+        var val;
+        if(state) {
+          val = 'round';
+        } else {
+          val = 'default';
+        }
+        changeArc(arc, 'data-linecap', val);
+      });
+      // linecap end
 
       // shadow option start
       var divoptionrow = $('<div/>', {class:'option-row shadow-toggle'}).appendTo(divoptions);
