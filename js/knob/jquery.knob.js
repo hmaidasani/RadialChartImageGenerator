@@ -100,6 +100,10 @@
                                     this.$.data('thickness') &&
                                     Math.max(Math.min(this.$.data('thickness'), 1), 0.01)
                                 ) || 0.35,
+                    bgthickness : (
+                                    this.$.data('bgthickness') &&
+                                    Math.max(Math.min(this.$.data('bgthickness'), 1), 0.01)
+                                ) || 0.35,
                     lineCap : this.$.data('linecap') || 'butt',
                     width : this.$.data('width') || 200,
                     height : this.$.data('height') || 200,
@@ -673,8 +677,10 @@
             this.cursorExt = this.o.cursor / 100;
             this.xy = this.w2 * this.scale;
             this.lineWidth = this.xy * this.o.thickness;
+            this.bglineWidth = this.xy * this.o.bgthickness;
             this.lineCap = this.o.lineCap;
-            this.radius = this.xy - this.lineWidth / 2;
+            this.radius = this.xy - this.lineWidth / 2 - 10;
+            this.bgradius = this.radius;
 
             this.o.angleOffset
             && (this.o.angleOffset = isNaN(this.o.angleOffset) ? 0 : this.o.angleOffset);
@@ -754,29 +760,23 @@
                 , pa                        // Previous arc
                 , r = 1;
 
-
-
-
-            
-
-
-            c.lineWidth = this.lineWidth;
+            c.lineWidth = this.bglineWidth;
             c.lineCap = this.lineCap;
-            var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.lineWidth);
+            var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.bglineWidth);
             gradient.addColorStop("0",this.o.bgColor);
             gradient.addColorStop("1.0",this.o.bgColorMid);
             c.strokeStyle = gradient;
-            c.arc(this.xy, this.xy, this.radius, (this.PI2/4) - 0.00001, this.startAngle + 0.00001, true);
+            c.arc(this.xy, this.xy, this.bgradius, (this.PI2/4) - 0.00001, this.startAngle + 0.00001, true);
             c.stroke();
 
             c.beginPath();
-            var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.lineWidth);
+            var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.bglineWidth);
             gradient.addColorStop("0",this.o.bgColorEnd);
             gradient.addColorStop("1.0",this.o.bgColorMid);
             c.strokeStyle = gradient;
-            c.arc(this.xy, this.xy, this.radius, this.startAngle - 0.00001, (this.PI2/4) + 0.00010, true);
+            c.arc(this.xy, this.xy, this.bgradius, this.startAngle - 0.00001, (this.PI2/4) + 0.00010, true);
             c.stroke();
-
+            c.lineWidth = this.lineWidth;
             if (this.o.displayPrevious) {
                 pa = this.arc(this.v);
                 c.beginPath();

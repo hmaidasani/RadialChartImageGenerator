@@ -216,6 +216,17 @@ function changeArc(arcId, dataChange, value) {
     } else if(dataChange === 'arc-thickness') {
         obj = {"thickness":value};
         $(arcId).attr('data-thickness', value);
+    } else if(dataChange === 'background-thickness') {
+        obj = {"bgthickness":value};
+        $(arcId).attr('data-bgthickness', value);
+    } else if(dataChange === 'size') {
+        obj = {"width":value, "height": value};
+        $(arcId).attr('data-width', value);
+        $(arcId).attr('data-height', value);
+    } else if(dataChange === 'x-position') {
+        $(arcId).closest('.canvas-box').css('left', value+'px');
+    } else if(dataChange === 'y-position') {
+        $(arcId).closest('.canvas-box').css('top', value+'px');
     } else if(dataChange === 'data-linecap') {
         obj = {"lineCap":value};
         $(arcId).attr('data-linecap', value);
@@ -349,7 +360,14 @@ function generateImages(el) {
         ga('send', 'event', 'button', 'click', 'generateImages_arc'+canvasList.length);
 
         if(canvasList.length == 3) {
-            
+            var width0 = parseInt($(canvasList[0]).next().attr('data-width'));
+            var width1 = parseInt($(canvasList[1]).next().attr('data-width'));
+            var width2 = parseInt($(canvasList[2]).next().attr('data-width'));
+            can.width = Math.max(width0, width1, width2);
+            var height0 = parseInt($(canvasList[0]).next().attr('data-height'));
+            var height1 = parseInt($(canvasList[1]).next().attr('data-height'));
+            var height2 = parseInt($(canvasList[2]).next().attr('data-height'));
+            can.height = Math.max(height0, height1, height2);
             if(merge) {
                 for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                     for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
@@ -385,6 +403,12 @@ function generateImages(el) {
                 }
             }
         } else if(canvasList.length == 2) {
+            var width0 = parseInt($(canvasList[0]).next().attr('data-width'));
+            var width1 = parseInt($(canvasList[1]).next().attr('data-width'));
+            can.width = Math.max(width0, width1);
+            var height0 = parseInt($(canvasList[0]).next().attr('data-height'));
+            var height1 = parseInt($(canvasList[1]).next().attr('data-height'));
+            can.height = Math.max(height0, height1);
             if(merge) {
                 for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                     for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
@@ -415,6 +439,8 @@ function generateImages(el) {
                 }
             }
         } else if(canvasList.length == 1) {
+            can.width = parseInt($(canvasList[0]).next().attr('data-width'));
+            can.height = parseInt($(canvasList[0]).next().attr('data-height'));
             for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                 changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
                 //merge arcs

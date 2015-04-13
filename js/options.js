@@ -20,6 +20,10 @@ $(function($) {
       fgcolorend = $(arcInputs[j]).attr('data-fgcolorend');
       textcolor = $(arcInputs[j]).attr('data-inputColor');
       thickness = Number($(arcInputs[j]).attr('data-thickness'));
+      bgthickness = Number($(arcInputs[j]).attr('data-bgthickness'));
+      width = Number($(arcInputs[j]).attr('data-width'));
+      ypos = Number(parseInt($(arcInputs[j]).closest('.canvas-box').css('top')));
+      xpos = Number(parseInt($(arcInputs[j]).closest('.canvas-box').css('left')));
       lineStyle = $(arcInputs[j]).attr('data-linecap');
       shadow = $(arcInputs[j]).attr('data-shadow');
       shadowColor = $(arcInputs[j]).attr('data-shadowColor');
@@ -31,7 +35,11 @@ $(function($) {
         "Foreground Color Mid" : fgcolormid,
         "Foreground Color End" : fgcolorend, 
         "Background Color" : bgcolor,
-        "Arc Thickness" : thickness
+        "Arc Thickness" : thickness,
+        "Background Thickness" : bgthickness,
+        "Size": width,
+        "Y Position": ypos,
+        "X Position": xpos
       };
       titleArr = arcId.split('-');
       title = titleArr[1].charAt(0).toUpperCase() + titleArr[1].slice(1) + " " + titleArr[2].charAt(0).toUpperCase() + titleArr[2].slice(1);
@@ -53,7 +61,7 @@ $(function($) {
         if(typeof data[option] === "number") {
           var datastep = 1;
           if(data[option] % 1 !== 0) {
-            datastep = 0.05;
+            datastep = 0.01;
           }
           // minus button
           var spaninputbtnminus = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
