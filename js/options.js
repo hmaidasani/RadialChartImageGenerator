@@ -73,7 +73,7 @@ $(function($) {
             'data-field':titleArr[0].toLowerCase()+titleArr[1].toLowerCase()+'_'+option.split(' ').join('-').toLowerCase()
           }).appendTo(spaninputbtnminus).append($('<span/>', {class:'glyphicon glyphicon-minus'}));
           // add input
-          $(inputbox).addClass('only-number').attr({'min':'0', 'max':'1000000'}).appendTo(divinputgroup);
+          $(inputbox).addClass('only-number').attr({'min':'-1000', 'max':'1000'}).appendTo(divinputgroup);
           // plus button
           var spaninputbtnplus = $('<span/>', {class:'input-group-btn'}).appendTo(divinputgroup);
           var btnplus = $('<button/>', {
