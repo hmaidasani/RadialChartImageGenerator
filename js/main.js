@@ -5,6 +5,23 @@
 */
 
 $(function($) {
+    // error handling
+    var gOldOnError = window.onerror;
+    window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+        ga('send', 'exception', {
+            'exDescription': errorMsg,
+            'exFatal': true,
+            'url': url,
+            'lineNumber': lineNumber
+        });
+        if (gOldOnError) {
+            return gOldOnError(errorMsg, url, lineNumber);
+        }
+        return false;
+    }
+    var d = new Date();
+    $('#copyrightYear').text(d.getFullYear());
+    // setup knob arcs
     $(".knob").knob({
     });
     $('.shadow-checkbox').change(function() {
