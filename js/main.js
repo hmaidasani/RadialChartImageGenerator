@@ -360,14 +360,9 @@ function generateImages(el) {
         ga('send', 'event', 'button', 'click', 'generateImages_arc'+canvasList.length);
 
         if(canvasList.length == 3) {
-            var width0 = parseInt($(canvasList[0]).next().attr('data-width'));
-            var width1 = parseInt($(canvasList[1]).next().attr('data-width'));
-            var width2 = parseInt($(canvasList[2]).next().attr('data-width'));
-            can.width = Math.max(width0, width1, width2);
-            var height0 = parseInt($(canvasList[0]).next().attr('data-height'));
-            var height1 = parseInt($(canvasList[1]).next().attr('data-height'));
-            var height2 = parseInt($(canvasList[2]).next().attr('data-height'));
-            can.height = Math.max(height0, height1, height2);
+            var size = calculateSize(canvasList, 3);
+            can.width = size.width;
+            can.height = size.height;
             if(merge) {
                 for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                     for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
@@ -403,12 +398,9 @@ function generateImages(el) {
                 }
             }
         } else if(canvasList.length == 2) {
-            var width0 = parseInt($(canvasList[0]).next().attr('data-width'));
-            var width1 = parseInt($(canvasList[1]).next().attr('data-width'));
-            can.width = Math.max(width0, width1);
-            var height0 = parseInt($(canvasList[0]).next().attr('data-height'));
-            var height1 = parseInt($(canvasList[1]).next().attr('data-height'));
-            can.height = Math.max(height0, height1);
+            var size = calculateSize(canvasList, 2);
+            can.width = size.width;
+            can.height = size.height;
             if(merge) {
                 for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                     for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
@@ -439,8 +431,9 @@ function generateImages(el) {
                 }
             }
         } else if(canvasList.length == 1) {
-            can.width = parseInt($(canvasList[0]).next().attr('data-width'));
-            can.height = parseInt($(canvasList[0]).next().attr('data-height'));
+            var size = calculateSize(canvasList, 1);
+            can.width = size.width;
+            can.height = size.height;
             for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                 changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
                 //merge arcs
@@ -492,6 +485,44 @@ function generateImages(el) {
     loading_screen.finish();
 }
 
+function calculateSize(canvasList, arcs) {
+    var obj = {};
+    if(arcs === 3) {
+        var left0 = $(canvasList[0]).closest('.canvas-box').offset().left;
+        var left1 = $(canvasList[1]).closest('.canvas-box').offset().left;
+        var left2 = $(canvasList[2]).closest('.canvas-box').offset().left;
+        var top0 = $(canvasList[0]).closest('.canvas-box').offset().top;
+        var top1 = $(canvasList[1]).closest('.canvas-box').offset().top;
+        var top2 = $(canvasList[2]).closest('.canvas-box').offset().top;
+        var right0 = left0 + parseInt($(canvasList[0]).next().attr('data-width'));
+        var right1 = left1 + parseInt($(canvasList[1]).next().attr('data-width'));
+        var right2 = left2 + parseInt($(canvasList[2]).next().attr('data-width'));
+        var bottom0 = top0 + parseInt($(canvasList[0]).next().attr('data-height'));
+        var bottom1 = top1 + parseInt($(canvasList[1]).next().attr('data-height'));
+        var bottom2 = top2 + parseInt($(canvasList[2]).next().attr('data-height'));
+        obj.width = Math.max(right0, right1, right2) - Math.min(left0, left1, left2);
+        obj.height = Math.max(bottom0, bottom1, bottom2) - Math.min(top0, top1, top2);
+    } else if(arcs === 2) {
+        var left0 = $(canvasList[0]).closest('.canvas-box').offset().left;
+        var left1 = $(canvasList[1]).closest('.canvas-box').offset().left;
+        var top0 = $(canvasList[0]).closest('.canvas-box').offset().top;
+        var top1 = $(canvasList[1]).closest('.canvas-box').offset().top;
+        var right0 = left0 + parseInt($(canvasList[0]).next().attr('data-width'));
+        var right1 = left1 + parseInt($(canvasList[1]).next().attr('data-width'));
+        var bottom0 = top0 + parseInt($(canvasList[0]).next().attr('data-height'));
+        var bottom1 = top1 + parseInt($(canvasList[1]).next().attr('data-height'));
+        obj.width = Math.max(right0, right1) - Math.min(left0, left1);
+        obj.height = Math.max(bottom0, bottom1) - Math.min(top0, top1);
+    } else if(arcs === 1) {
+        var left0 = $(canvasList[0]).closest('.canvas-box').offset().left;
+        var top0 = $(canvasList[0]).closest('.canvas-box').offset().top;
+        var right0 = left0 + parseInt($(canvasList[0]).next().attr('data-width'));
+        var bottom0 = top0 + parseInt($(canvasList[0]).next().attr('data-height'));
+        obj.width = right0 - left0;
+        obj.height = bottom0 - top0;
+    }
+    return obj;
+}
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
