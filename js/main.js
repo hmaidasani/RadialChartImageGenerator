@@ -210,8 +210,12 @@ $(function($) {
 });
 
 
-function changeArc(arcId, dataChange, value) {
-    ga('send', 'event', 'button', 'click', 'changeArc_' + arcId + '_' + dataChange);
+function changeArc(arcId, dataChange, value, doNotLog) {
+    if(doNotLog) {
+        // don't send to ga
+    } else {
+        ga('send', 'event', 'button', 'click', 'changeArc_' + arcId + '_' + dataChange);
+    }  
 	var obj = {};
     color = $(arcId).css('color');
     if(dataChange === 'max-value') {
@@ -384,9 +388,9 @@ function generateImages(el) {
                 for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                     for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
                         for(k = parseInt($(canvasList[2]).next().attr('data-min')); k <= parseInt($(canvasList[2]).next().attr('data-max')); k++) {
-                            changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
-                            changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j);
-                            changeArc('#'+$(canvasList[2]).next().attr('id'), 'current-value', k);
+                            changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value', i, true);
+                            changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j, true);
+                            changeArc('#'+$(canvasList[2]).next().attr('id'), 'current-value', k, true);
                             //merge arcs
                             for(x = 0; x < canvasList.length; x++) {
                                 ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
@@ -400,7 +404,7 @@ function generateImages(el) {
             } else {
                 for(x = 0; x < canvasList.length; x++) {
                     for(i = parseInt($(canvasList[x]).next().attr('data-min')); i <= parseInt($(canvasList[x]).next().attr('data-max')); i++) {
-                        changeArc('#'+$(canvasList[x]).next().attr('id'), 'current-value' , i);
+                        changeArc('#'+$(canvasList[x]).next().attr('id'), 'current-value', i, true);
                         ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
                         if(x === 0)
                             filename = filePrefixOuter;
@@ -421,8 +425,8 @@ function generateImages(el) {
             if(merge) {
                 for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
                     for(j = parseInt($(canvasList[1]).next().attr('data-min')); j <= parseInt($(canvasList[1]).next().attr('data-max')); j++) {
-                        changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
-                        changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j);
+                        changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value', i, true);
+                        changeArc('#'+$(canvasList[1]).next().attr('id'), 'current-value', j, true);
                         //merge arcs
                         for(x = 0; x < canvasList.length; x++) {
                             ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
@@ -435,7 +439,7 @@ function generateImages(el) {
             } else {
                 for(x = 0; x < canvasList.length; x++) {
                     for(i = parseInt($(canvasList[x]).next().attr('data-min')); i <= parseInt($(canvasList[x]).next().attr('data-max')); i++) {
-                        changeArc('#'+$(canvasList[x]).next().attr('id'), 'current-value' , i);
+                        changeArc('#'+$(canvasList[x]).next().attr('id'), 'current-value', i, true);
                         ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
                         if(x === 0)
                             filename = filePrefixOuter;
@@ -452,7 +456,7 @@ function generateImages(el) {
             can.width = size.width;
             can.height = size.height;
             for(i = parseInt($(canvasList[0]).next().attr('data-min')); i <= parseInt($(canvasList[0]).next().attr('data-max')); i++) {
-                changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value' , i);
+                changeArc('#'+$(canvasList[0]).next().attr('id'), 'current-value', i, true);
                 //merge arcs
                 ctx.drawImage(canvasList[0], parseInt($(canvasList[0]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[0]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[0]).css('width')), parseInt($(canvasList[0]).css('height')));
                 //add text
