@@ -294,6 +294,13 @@ function showFilenamePrompt(el) {
         $('#file-prefix-output').text($(this).val());
     });
 
+    $('.file-suffix').keyup(function (e) {
+        $('#file-suffix-output').text($(this).val());
+    });
+    $('.file-suffix').focus(function (e) {
+        $('#file-suffix-output').text($(this).val());
+    });
+
     $('#question-merge').tooltip({title: "This will merge all the arcs into a single image", placement: "right"});
     $('#filenamePrompt').modal('show');
 }
@@ -369,6 +376,7 @@ function generateImages(el) {
         var filePrefixOuter = $('#outer-file-prefix').val();
         var filePrefixMiddle = $('#middle-file-prefix').val();
         var filePrefixInner = $('#inner-file-prefix').val();
+        var fileSuffix = $('#file-suffix').val();
         var canvasList = $($(el).attr('chart-box') + ' canvas');
         var can = document.createElement('canvas');
         offset = 0;
@@ -395,7 +403,7 @@ function generateImages(el) {
                             for(x = 0; x < canvasList.length; x++) {
                                 ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
                             }
-                            filename = filePrefix+i+'-'+j+'-'+k+".png";
+                            filename = filePrefix+i+'-'+j+'-'+k+fileSuffix+".png";
                             img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                             ctx.clearRect(0, 0, can.width, can.height);
                         }
@@ -412,7 +420,7 @@ function generateImages(el) {
                             filename = filePrefixMiddle;
                         if(x === 2)
                             filename = filePrefixInner;
-                        filename += i+".png";
+                        filename += i+fileSuffix+".png";
                         img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                         ctx.clearRect(0, 0, can.width, can.height);
                     }
@@ -431,7 +439,7 @@ function generateImages(el) {
                         for(x = 0; x < canvasList.length; x++) {
                             ctx.drawImage(canvasList[x], parseInt($(canvasList[x]).closest('.canvas-box').css('left'))+offset/2, parseInt($(canvasList[x]).closest('.canvas-box').css('top'))+offset/2, parseInt($(canvasList[x]).css('width')), parseInt($(canvasList[x]).css('height')));
                         }
-                        filename = filePrefix+i+'-'+j+".png";
+                        filename = filePrefix+i+'-'+j+fileSuffix+".png";
                         img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                         ctx.clearRect(0, 0, can.width, can.height);
                     }
@@ -445,7 +453,7 @@ function generateImages(el) {
                             filename = filePrefixOuter;
                         if(x === 1)
                             filename = filePrefixInner;
-                        filename += i+".png";
+                        filename += i+fileSuffix+".png";
                         img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                         ctx.clearRect(0, 0, can.width, can.height);
                     }
@@ -494,7 +502,7 @@ function generateImages(el) {
                     ctx.textBaseline = 'middle';
                     ctx.fillText(value, (can.width/2), (can.height/2)+35);
                 }
-                filename = filePrefix+i+".png";
+                filename = filePrefix+i+fileSuffix+".png";
                 img.file(filename, can.toDataURL("image/png").substring(22), {base64: true});
                 ctx.clearRect(0, 0, can.width, can.height);
             }
