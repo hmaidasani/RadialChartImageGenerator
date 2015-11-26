@@ -102,7 +102,7 @@
                                 ) || 0.35,
                     bgthickness : (
                                     this.$.data('bgthickness') &&
-                                    Math.max(Math.min(this.$.data('bgthickness'), 1), 0.01)
+                                    Math.max(Math.min(this.$.data('bgthickness'), 1), 0.00)
                                 ) || 0.35,
                     lineCap : this.$.data('linecap') || 'butt',
                     width : this.$.data('width') || 200,
@@ -767,7 +767,10 @@
             gradient.addColorStop("1.0",this.o.bgColorMid);
             c.strokeStyle = gradient;
             c.arc(this.xy, this.xy, this.bgradius, (this.PI2/4) - 0.00001, this.startAngle + 0.00001, true);
-            c.stroke();
+            // if background width == 0 then don't draw it. Default is to draw a small line
+            if (this.bglineWidth != 0.00) {
+                c.stroke();
+            }
 
             c.beginPath();
             var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.bglineWidth);
