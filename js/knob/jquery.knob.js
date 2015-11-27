@@ -778,7 +778,11 @@
             gradient.addColorStop("1.0",this.o.bgColorMid);
             c.strokeStyle = gradient;
             c.arc(this.xy, this.xy, this.bgradius, this.startAngle - 0.00001, (this.PI2/4) + 0.00010, true);
-            c.stroke();
+             
+            // if bgLineWidth == 0 then skip drawing background arc
+            if (this.bglineWidth != 0.00) {
+                c.stroke();
+            }
             c.lineWidth = this.lineWidth;
             if (this.o.displayPrevious) {
                 pa = this.arc(this.v);
