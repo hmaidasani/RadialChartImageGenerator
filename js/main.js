@@ -209,6 +209,23 @@ $(function($) {
     if (isSafari) $('#browser-alert').modal();
 });
 
+function checkColor(colorValue){
+
+    //first test the color
+    var isValidHexColor = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(colorValue) // for #f00 (Thanks Smamatti)
+
+    if (!isValidHexColor){
+        
+        //lets try to 'fix' the color
+
+        //we don't want double hashes.. so remove these.
+        colorValue = colorValue.replace(/(#)(?=.*\1)/g, "")
+
+    }
+
+    return colorValue;
+
+}
 
 function changeArc(arcId, dataChange, value, doNotLog) {
     if(doNotLog) {
@@ -217,7 +234,11 @@ function changeArc(arcId, dataChange, value, doNotLog) {
         ga('send', 'event', 'button', 'click', 'changeArc_' + arcId + '_' + dataChange);
     }  
 	var obj = {};
-    color = $(arcId).css('color');
+
+    color = checkColor($(arcId).css('color'));
+
+    value = checkColor(value);
+
     if(dataChange === 'max-value') {
         obj = {"max":value};
         $(arcId).attr('data-max', value);
@@ -264,6 +285,7 @@ function changeArc(arcId, dataChange, value, doNotLog) {
         return;
     }
     obj['inputColor'] = color;
+
     if(dataChange !== 'current-value') {
 	   $(arcId).attr(dataChange, value).trigger("configure", obj);
     } else if(dataChange === 'current-value') {
