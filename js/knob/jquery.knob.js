@@ -815,7 +815,7 @@
                 var showShadow = $('#'+this.$[0].id).attr('data-shadow');
                 var shadowColor = $('#'+this.$[0].id).attr('data-shadowColor') || $('#'+this.$[0].id).attr('shadow-color');
                 if(showShadow === 'true') {
-                    if(this.cv / this.o.max > 0.95){
+                    if(this.cv / this.o.max >= 0.95){
                         c.beginPath();
                         var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.lineWidth);
                             gradient.addColorStop("0",this.o.fgColorEnd);
@@ -824,9 +824,9 @@
                         c.strokeStyle = r ? gradient : this.fgColor ;
 
                         if(shadowColor)
-                            c.shadowColor = shadowColor;
+                            c.shadowColor = shadowColor+'aa';
                         else
-                            c.shadowColor = "#555555";
+                            c.shadowColor = "#555555aa";
                         c.shadowBlur    = 20;
                         c.shadowOffsetX = 15 * -Math.sin(a.e);
                         c.shadowOffsetY = 15 * Math.cos(a.e);
