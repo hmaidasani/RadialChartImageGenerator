@@ -778,7 +778,7 @@
             gradient.addColorStop("1.0",this.o.bgColorMid);
             c.strokeStyle = gradient;
             c.arc(this.xy, this.xy, this.bgradius, this.startAngle - 0.00001, (this.PI2/4) + 0.00010, true);
-             
+
             // if bgLineWidth == 0 then skip drawing background arc
             if (this.bglineWidth != 0.00) {
                 c.stroke();
@@ -809,32 +809,33 @@
                 c.strokeStyle = r ? gradient : this.fgColor ;
                 c.arc(this.xy, this.xy, this.radius, this.PI2 * 1.25, a.e, a.d);
 
-                
+
                 c.stroke();
-                
+
                 var showShadow = $('#'+this.$[0].id).attr('data-shadow');
                 var shadowColor = $('#'+this.$[0].id).attr('data-shadowColor') || $('#'+this.$[0].id).attr('shadow-color');
                 if(showShadow === 'true') {
-                    if(this.cv == this.o.max){
+                    if(this.cv / this.o.max >= 0.95){
                         c.beginPath();
                         var gradient=c.createLinearGradient(this.w2,0,this.w2,this.h-this.lineWidth);
                             gradient.addColorStop("0",this.o.fgColorEnd);
-                            gradient.addColorStop("1.0",this.o.fgColorEnd);
+                            gradient.addColorStop("0.5",this.o.fgColorEnd);
+                            gradient.addColorStop("1.0",this.o.fgColorMid);
                         c.strokeStyle = r ? gradient : this.fgColor ;
 
                         if(shadowColor)
-                            c.shadowColor = shadowColor;
+                            c.shadowColor = shadowColor+'aa';
                         else
-                            c.shadowColor = "#555555";
-                        c.shadowBlur    = 10;
-                        c.shadowOffsetX = 10; 
-                        c.shadowOffsetY = 0;
-                        c.arc(this.xy, this.xy, this.radius, this.PI2 * 1.74, a.e, a.d);
+                            c.shadowColor = "#555555aa";
+                        c.shadowBlur    = 20;
+                        c.shadowOffsetX = 15 * -Math.sin(a.e);
+                        c.shadowOffsetY = 15 * Math.cos(a.e);
+                        c.arc(this.xy, this.xy, this.radius, a.e-0.01, a.e, a.d);
 
                         c.stroke();
                     }
                 }
-             
+
 
             } else {
                 c.beginPath();
